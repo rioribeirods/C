@@ -2,8 +2,8 @@
 
 int main(){
     int num;
-    printf("choose your number: ");
+    printf("choose your integer number: ");
     scanf("%d", &num);
-    printf("the number you chose is: %d", num);
+    printf("the integer number  you chose is: %d", num);
     return 0;
 }
