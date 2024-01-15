@@ -19,6 +19,6 @@ int main(){
     }
 
     for (int i = 0; i < quantidade; i++) {
-        printf("Na posição %d temos o valor: %d\n", i, ponteiro[i]);
+        printf("Na posicao %d temos o valor: %d\n", i, ponteiro[i]);
     }
 }
