@@ -86,7 +86,19 @@ void menu(){
     }
 }
 void registerProduct(){
+    printf("Register product\n");
+    printf("================\n");
 
+    printf("Insert the product name: \n");
+    fgets(products[product_count].name, 30, stdin);
+
+    printf("Insert the product price: \n");
+    scanf("%f", &products[product_count].price);
+
+    printf("The product %s was registered with success.\n", strtok(products[product_count].name, "\n");
+    
+    products[product_count].code = (product_count + 1);
+    product_count++;
 }
 void listProducts(){
 
