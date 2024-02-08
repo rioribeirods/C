@@ -153,5 +153,28 @@ int * HasInCart(int code){
 }
 
 void finishOrder(){
+    if(cart_count > 0){
+        float valueTotal = 0.0;
+        printf("Products in cart\n");
+        printf("----------------\n");
+        for(int i = 0; i < cart_count; i++){
+            Product p = cart[i].product;
+            int quantity = cart[i].quantity;
+            valueTotal += p.price * quantity;
+            infoProduct(p);
+            printf("Quantity: %d\n", quantity);
+            printf("------------\n");
+            sleep(1);
+        }
+        printf("Your invoice is $ %.2f\n", valueTotal);
 
+        cart_count = 0;
+        printf("Come back soon!\n");
+        sleep(5);
+        menu();
+    } else {
+        printf("No product in cart yet.\n");
+        sleep(3);
+        menu();
+    }
 }
