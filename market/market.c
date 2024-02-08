@@ -18,6 +18,7 @@ void infoProduct(Product prod);
 void menu();
 void registerProduct();
 void listProducts();
+void buyProduct();
 void showCart();
 Product productById(int code);
 int * HasInCart(int code);
@@ -36,15 +37,61 @@ int main() {
 }
 
 void infoProduct(Product prod){
-    
+    printf("Code: %d \nName: %s \nPrice: %.2f\n", prod.code, strtok(prod.name, "\n"), prod.price);   
 }
-void menu(){
 
+void menu(){
+    printf("=================================\n");
+    printf("=============Welcome=============\n");
+    printf("=========== Rio Shop ============\n");
+    printf("=================================\n");
+
+    printf("Select a option below: \n");
+    printf("1 - Register product\n");
+    printf("2 - List products\n");
+    printf("3 - Buy product\n");
+    printf("4 - Show cart\n");
+    printf("5 - Finish order\n");
+    printf("6 - Exit\n");
+
+    int option; 
+    scanf("%d", &option);
+    getchar();
+
+    switch(option){
+        case 1:
+            registerProduct();
+            break;
+        case 2:
+            listProducts();
+            break;
+        case 3:
+            buyProduct();
+            break;
+        case 4:
+            showCart();
+            break;
+        case 5:
+            finishOrder();
+            break;
+        case 6:
+            printf("Come back soon!");
+            sleep(2);
+            exit(0);
+        default:
+            printf("Unknown option.\n");
+            sleep(2);
+            menu();
+            break;
+    }
 }
 void registerProduct(){
 
 }
 void listProducts(){
+
+}
+void buyProduct(){
 
 }
 void showCart(){
