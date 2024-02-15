@@ -99,6 +99,9 @@ void registerProduct(){
     
     products[product_count].code = (product_count + 1);
     product_count++;
+
+    sleep(2);
+    menu();
 }
 void listProducts(){
     if(product_count > 0) {
@@ -109,12 +112,74 @@ void listProducts(){
             printf("----------------\n");
             sleep(1);
         }
+        sleep(2);
+        menu();
     } else {
         printf("There is no products.\n");
+        sleep(2);
+        menu();
     }
 }
-void buyProduct(){
 
+void buyProduct(){
+    if(product_count > 0){
+        printf("Enter the product code you want to add to your cart.\n");
+        printf("=============== Available Products =================\n");
+        
+        for(int i = 0; i < product_count; i++){
+            infoProduct(products[i]);
+            printf("----------------------\n");
+            sleep(1);
+        }
+
+        int code;
+        scanf("%d", &code);
+        getchar();
+
+       int has_in_stock = 0;
+
+       for (int i = 0; i < product_count; i++){
+            if(products[i].code == code) {
+                has_in_stock = 1;
+
+                if(cart_count > 0){
+                    int * result_return = HasInCart(code);
+
+                    if(result_return[0] == 1){
+                        cart[result_return[1]].quantity++;
+                        printf("One more %s has been added to the cart.\n", strtok(cart[result_return[1]].product.name, "\n"));
+                        sleep(2);
+                        menu();
+                    } else {
+                        Product p = productById(code);
+                        cart[cart_count].product = p;
+                        cart[cart_count].quantity = 1;
+                        cart_count++;
+                        printf("The product %s has been added to the cart.\n", strtok(p.name, "\n"));
+                        sleep(2);
+                        menu();
+                    }
+                } else {
+                    Product p = productById(code);
+                    cart[cart_count].product = p;
+                    cart[cart_count].quantity = 1;
+                    cart_count++;
+                    printf("The product %s has been added to the cart.\n", strtok(p.name, "\n"));
+                    sleep(2);
+                    menu();
+                }
+            }
+        }
+       if(has_in_stock < 1){
+            printf("There is no products with %d code.\n", code);
+            sleep(2);
+            menu();
+       }
+    } else {
+        printf("There is no products to sell yet.\n");
+        sleep(2);
+        menu();
+    }
 }
 void showCart(){
     if(cart_count > 0) {
@@ -124,10 +189,13 @@ void showCart(){
             infoProduct(cart[i].product);
             printf("Quantity: %d\n", cart[i].quantity);
             printf("-------------\n");
-            sleep(1);
         }
+        sleep(2);
+        menu(0);
     } else {
         printf("There is no products in the cart.\n");
+        sleep(2);
+        menu();
     }
 }
 
@@ -142,14 +210,14 @@ Product productById(int code){
 }
 
 int * HasInCart(int code){
-    int static result[] = {0, 0};
+    int static result_return[] = {0, 0};
     for(int i = 0; i < cart_count; i++){
         if(cart[i].product.code == code){
-            result[0] = 1;
-            result[1] = i;
+            result_return[0] = 1;
+            result_return[1] = i;
         }
     }
-    return result; 
+    return result_return; 
 }
 
 void finishOrder(){
@@ -170,8 +238,6 @@ void finishOrder(){
 
         cart_count = 0;
         printf("Come back soon!\n");
-        sleep(5);
-        menu();
     } else {
         printf("No product in cart yet.\n");
         sleep(3);
